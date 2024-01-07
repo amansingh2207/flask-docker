@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  flask_app:
+    environment:
+      FLASK_DEBUG: 1
+    volumes:
+      - .:/app
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASEL: splitzer
+      MYSQL_USER: splitzer
+      MYSQL_PASSWORD: splitzer
+    ports:
+      - "3307:3307"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    build:
+      context: .
+      dockerfile: Dockerfile_phpmyadmin
+    ports:
+      - "8090:80"
+    depends_on:
+      - mysql
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+volumes:
+  db_data:
