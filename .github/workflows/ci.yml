@@ -18,11 +18,6 @@ jobs:
           MYSQL_PASSWORD: splitzer
         ports:
           - 3307:3307
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=10s
-          --health-retries=10
 
       redis:
         image: redis:latest
