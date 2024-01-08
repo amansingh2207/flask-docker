@@ -22,5 +22,5 @@ ENV NAME World
 # Start the Flask app
 #flask run --host=0.0.0.0 --port=80
 # CMD ["flask", "run", "--host=0.0.0.0", "--port=4000"]
-CMD ["gunicorn", "-b", "0.0.0.0:4000", "wsgi:app"]
+CMD ["gunicorn", "--reload", "-b", "0.0.0.0:4000", "wsgi:app"]
 
