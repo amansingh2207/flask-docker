@@ -10,7 +10,18 @@ services:
       - "4000:4000"
     depends_on:
       - mysql
+      - redis      
+
+  test:
+    build: .
+    volumes:
+      - .:/app
+    command: pytest
+    depends_on:
+      - mysql
       - redis
+    environment:
+      - PYTHONPATH=/app
 
   mysql:
     image: mysql:latest
