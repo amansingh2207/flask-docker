@@ -8,28 +8,12 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: splitzer
-          MYSQL_USER: splitzer
-          MYSQL_PASSWORD: splitzer
-        ports:
-          - 3307:3307
-
-      redis:
-        image: redis:latest
-        ports:
-          - 6379:6379
-
     steps:
     - name: Check out repository code
       uses: actions/checkout@v2
 
     - name: Set up Docker environment
-      run: docker-compose up -d mysql redis
+      run: docker-compose up -d
 
     - name: Build the Docker image
       run: docker-compose build flask_app test
